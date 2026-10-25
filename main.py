@@ -1,10 +1,10 @@
 from business_rules import (
     calculate_shipment_total,
-    requires_prepayment,
-    needs_pallet,
-    total_shipped,
-    largest_shipment,
     format_shipment_line,
+    largest_shipment,
+    needs_pallet,
+    requires_prepayment,
+    total_shipped,
 )
 
 shipments = [
@@ -23,9 +23,7 @@ count = 0
 prepayment_count = 0
 pallet_count = 0
 for shipment in shipments:
-    total = calculate_shipment_total(
-        shipment["bag_price"], shipment["bags"], shipment
-    )
+    total = calculate_shipment_total(shipment["bag_price"], shipment["bags"], shipment)
     prepayment = requires_prepayment(total)
     pallet = needs_pallet(shipment["bags"], total)
     count += 1
@@ -34,7 +32,6 @@ for shipment in shipments:
     if pallet:
         pallet_count += 1
     print(format_shipment_line(shipment["buyer"], total, prepayment, pallet))
-
 
 
 revenue = total_shipped(shipments)
