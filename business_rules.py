@@ -40,12 +40,13 @@ if total > SHIPPING_LIMIT:
 
 def requires_prepayment(total: float) -> bool:
     """Return True when the shipment total retquires repayment"""
-    
+    return total >= PREPAYMENT_LIMIT
 
 
 
 def needs_pallet(bags: int, total: float) -> bool:
     """Return true when the shipment needs a freight pallet"""
+    return bags > PALLET_BAGS and total > PALLET_LIMIT
     
 
 def total_shipped(shipments: list) -> float:
