@@ -1,3 +1,12 @@
+from business_rules import (
+    calculate_shipment_total,
+    requires_prepayment,
+    needs_pallet,
+    total_shipped,
+    largest_shipment,
+    format_shipment_line,
+)
+
 shipments = [
     {"buyer": "Uptown Bakery", "bag_price": 14.00, "bags": 10, "partner": False},
     {"buyer": "Vine Cafe", "bag_price": 12.50, "bags": 15, "partner": True},
@@ -9,4 +18,29 @@ shipments = [
     {"buyer": "Cove Market", "bag_price": 13.00, "bags": 150, "partner": True},
 ]
 
+print("Copper Kettle Coffee Roasters - Shipment Report")
+count = 0
+prepayment_count = 0
+pallet_count = 0
+for shipment in shipments:
+    total = calculate_shipment_total(
+        shipment["bag_price"], shipment["bags"], shipment
+    )
+    prepayment = requires_prepayment(total)
+    pallet = needs_pallet(shipment["bags"], total)
+    count += 1
+    if prepayment:
+        prepayment_count += 1
+    if pallet:
+        pallet_count += 1
+    print(format_shipment_line(shipment["buyer"], total, prepayment, pallet))
 
+
+
+revenue = total_shipped(shipments)
+print(f"shipments: {count}")
+print(f"Total shipped: ${revenue:.2f}")
+print(f"Average shipment total: ${revenue / count:.2f}")
+print(f"Largest shipment total: {largest_shipment(shipments)}")
+print(f"Prepayments required: {prepayment_count}")
+print(f"Pallets needed: {pallet_count}")
