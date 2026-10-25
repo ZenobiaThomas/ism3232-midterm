@@ -4,11 +4,12 @@
 MIN_BAGS = 20
 LARGE_BAGS = 80
 BULK_DISCOUNT = 0.09
-LARGE_DISCOUNT = 0.014
-PARTNER_DISCOUNT = 0.4
+LARGE_DISCOUNT = 0.14
+PARTNER_DISCOUNT = 0.04
 SHIPPING_FEE = 35
 SHIPPING_LIMIT = 250
-REPAYMENT_LIMIT = 1500
+PREPAYMENT_LIMIT = 1500
+PALLET_BAGS = 60
 PALLET_LIMIT = 700
 
 def calculate_bean_cost(bag_price: float, bags: int) -> float:
@@ -36,6 +37,7 @@ def calculate_shipment_total(bag_price: float, bags: int, partner: bool = False)
     total = cost - (cost * discount)
     if total < SHIPPING_LIMIT:
         total = total + SHIPPING_FEE
+    return total
 
 
 def requires_prepayment(total: float) -> bool:
@@ -72,7 +74,7 @@ def largest_shipment(shipments: list) -> str:
         total = calculate_shipment_total(price, bags, partner)
         if total > highest:
             highest = total
-            largest = shipment
+            largest = shipment ["buyer"]
     return largest
 
 def format_shipment_line(buyer: str, total: float, prepayment: bool, pallet: bool) -> str:
