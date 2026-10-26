@@ -1,4 +1,4 @@
-# ISM3232 Midterm: Lakeshore Kayak Tours
+# ISM3232 Midterm: Copper Kettle Coffee Roasters
 
 - **Name:** Zenobia Thomas
 - **Version:** Final
